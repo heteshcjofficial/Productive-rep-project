@@ -1,10 +1,10 @@
 {
-  "id": "http://chronosync.versile.app/",
+  "id": "/",
   "name": "ChronoSync: Circadian Productivity OS",
   "short_name": "ChronoSync",
   "description": "Biometric Circadian Productivity & Life Visualization Operating System",
-  "start_url": "http://chronosync.versile.app/",
-  "scope": "http://chronosync.versile.app/",
+  "start_url": ".",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#090d16",
   "theme_color": "#0ea5e9",
