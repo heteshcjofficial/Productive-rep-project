@@ -1,0 +1,1621 @@
+/* ==========================================================================
+   ChronoSync: Circadian Productivity & Life Visualization OS
+   Design System: Circadian Fluidity (Tailored HSL & Semantic Design Tokens)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Common System Colors */
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Default / Peak Focus Theme (Active by default) */
+  --bg-primary: #07090e;
+  --bg-secondary: #0d131f;
+  --bg-tertiary: #141c2e;
+  --surface-glass: rgba(13, 19, 31, 0.75);
+  --surface-glass-border: rgba(56, 189, 248, 0.18);
+  --surface-hover: rgba(56, 189, 248, 0.08);
+
+  --accent-primary: #0ea5e9;
+  --accent-secondary: #38bdf8;
+  --accent-glow: rgba(14, 165, 233, 0.35);
+  --accent-ambient: rgba(14, 165, 233, 0.08);
+  --accent-text: #e0f2fe;
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  --badge-bg: rgba(14, 165, 233, 0.15);
+  --badge-border: rgba(14, 165, 233, 0.3);
+  --badge-text: #38bdf8;
+
+  --status-high-cost: #f43f5e;
+  --status-med-cost: #f59e0b;
+  --status-low-cost: #10b981;
+  --status-deep-protect: #6366f1;
+
+  --header-glow: radial-gradient(circle at 50% -20%, rgba(14, 165, 233, 0.25), transparent 70%);
+}
+
+/* ==========================================================================
+   Circadian 4-Phase Atmosphere Variations
+   ========================================================================== */
+
+/* 1. Dawn (05:00 - 08:30) - Amber/Gold Wake & Awakening Clarity */
+body.theme-dawn {
+  --bg-primary: #0f0d0a;
+  --bg-secondary: #1a1612;
+  --bg-tertiary: #26201a;
+  --surface-glass: rgba(26, 22, 18, 0.8);
+  --surface-glass-border: rgba(245, 158, 11, 0.25);
+  --surface-hover: rgba(245, 158, 11, 0.1);
+
+  --accent-primary: #f59e0b;
+  --accent-secondary: #fbbf24;
+  --accent-glow: rgba(245, 158, 11, 0.4);
+  --accent-ambient: rgba(245, 158, 11, 0.1);
+  --accent-text: #fef3c7;
+
+  --text-main: #fffbeb;
+  --text-muted: #d4a373;
+  --text-dim: #8c7851;
+
+  --badge-bg: rgba(245, 158, 11, 0.15);
+  --badge-border: rgba(245, 158, 11, 0.35);
+  --badge-text: #fbbf24;
+
+  --header-glow: radial-gradient(circle at 50% -20%, rgba(245, 158, 11, 0.3), transparent 70%);
+}
+
+/* 2. Peak Focus (08:30 - 16:30) - Electric Cyan / Deep Obsidian Clarity */
+body.theme-peak {
+  --bg-primary: #060911;
+  --bg-secondary: #0c1222;
+  --bg-tertiary: #131d36;
+  --surface-glass: rgba(12, 18, 34, 0.8);
+  --surface-glass-border: rgba(56, 189, 248, 0.2);
+  --surface-hover: rgba(56, 189, 248, 0.09);
+
+  --accent-primary: #0284c7;
+  --accent-secondary: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.4);
+  --accent-ambient: rgba(56, 189, 248, 0.12);
+  --accent-text: #e0f2fe;
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  --badge-bg: rgba(56, 189, 248, 0.15);
+  --badge-border: rgba(56, 189, 248, 0.35);
+  --badge-text: #38bdf8;
+
+  --header-glow: radial-gradient(circle at 50% -20%, rgba(56, 189, 248, 0.3), transparent 70%);
+}
+
+/* 3. Twilight (16:30 - 21:00) - Sunset Violet / Rose Gold / Reflection */
+body.theme-twilight {
+  --bg-primary: #0c0914;
+  --bg-secondary: #161224;
+  --bg-tertiary: #221c38;
+  --surface-glass: rgba(22, 18, 36, 0.8);
+  --surface-glass-border: rgba(168, 85, 247, 0.25);
+  --surface-hover: rgba(168, 85, 247, 0.1);
+
+  --accent-primary: #9333ea;
+  --accent-secondary: #c084fc;
+  --accent-glow: rgba(192, 132, 252, 0.4);
+  --accent-ambient: rgba(192, 132, 252, 0.12);
+  --accent-text: #f3e8ff;
+
+  --text-main: #faf5ff;
+  --text-muted: #c4b5fd;
+  --text-dim: #8b5cf6;
+
+  --badge-bg: rgba(168, 85, 247, 0.15);
+  --badge-border: rgba(168, 85, 247, 0.35);
+  --badge-text: #d8b4fe;
+
+  --header-glow: radial-gradient(circle at 50% -20%, rgba(168, 85, 247, 0.3), transparent 70%);
+}
+
+/* 4. Nocturne (21:00 - 05:00) - Melatonin-Safe Crimson / Deep Blackout */
+body.theme-nocturne {
+  --bg-primary: #0a0406;
+  --bg-secondary: #14070a;
+  --bg-tertiary: #1f0b10;
+  --surface-glass: rgba(20, 7, 10, 0.85);
+  --surface-glass-border: rgba(225, 29, 72, 0.22);
+  --surface-hover: rgba(225, 29, 72, 0.1);
+
+  --accent-primary: #e11d48;
+  --accent-secondary: #fb7185;
+  --accent-glow: rgba(225, 29, 72, 0.4);
+  --accent-ambient: rgba(225, 29, 72, 0.1);
+  --accent-text: #ffe4e6;
+
+  --text-main: #fff1f2;
+  --text-muted: #fda4af;
+  --text-dim: #9f1239;
+
+  --badge-bg: rgba(225, 29, 72, 0.15);
+  --badge-border: rgba(225, 29, 72, 0.35);
+  --badge-text: #fb7185;
+
+  --header-glow: radial-gradient(circle at 50% -20%, rgba(225, 29, 72, 0.25), transparent 70%);
+}
+
+/* ==========================================================================
+   Base & Resets
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  transition: background-color var(--transition-slow), color var(--transition-slow);
+}
+
+/* Background Atmosphere glow */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 480px;
+  background: var(--header-glow);
+  pointer-events: none;
+  z-index: 0;
+  transition: background var(--transition-slow);
+}
+
+/* Noise overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+/* App Container */
+.app-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px 24px 100px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==========================================================================
+   Header & System Bar
+   ========================================================================== */
+
+.system-domain-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  color: var(--text-muted);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+
+.domain-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--accent-secondary);
+  background: var(--badge-bg);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--badge-border);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.domain-pill:hover {
+  filter: brightness(1.2);
+  transform: translateY(-1px);
+}
+
+.domain-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  box-shadow: 0 0 10px var(--accent-primary);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-logo-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+  border: 1px solid var(--surface-glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px var(--accent-ambient);
+}
+
+.brand-title h1 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-title p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Biometric Telemetry Chip */
+.biometric-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--surface-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--surface-glass-border);
+  font-size: 12px;
+}
+
+.biometric-chip .vitals-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vital-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.vital-icon {
+  color: var(--accent-secondary);
+}
+
+/* Phase Selector dropdown */
+.circadian-phase-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-glass);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-full);
+  padding: 4px 6px 4px 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.phase-select-menu {
+  background: var(--bg-secondary);
+  color: var(--accent-text);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-full);
+  padding: 6px 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.phase-select-menu:hover {
+  border-color: var(--accent-secondary);
+}
+
+.audio-sound-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-glass);
+  border: 1px solid var(--surface-glass-border);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.audio-sound-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent-secondary);
+}
+
+.audio-sound-btn.playing {
+  background: var(--accent-primary);
+  color: #fff;
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* ==========================================================================
+   Navigation Bar (Desktop & Mobile)
+   ========================================================================== */
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  padding: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.nav-btn:hover {
+  color: var(--text-main);
+  background: var(--surface-hover);
+}
+
+.nav-btn.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.nav-btn .badge-count {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Cards, Glass Surfaces & Layout Grids
+   ========================================================================== */
+
+.glass-card {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--text-main);
+}
+
+.card-title .icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--badge-bg);
+  border: 1px solid var(--badge-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-secondary);
+}
+
+.card-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--badge-bg);
+  border: 1px solid var(--badge-border);
+  color: var(--badge-text);
+}
+
+.badge-danger {
+  background: rgba(244, 63, 94, 0.15);
+  border-color: rgba(244, 63, 94, 0.35);
+  color: #fb7185;
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+}
+
+.badge-success {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+.badge-indigo {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.35);
+  color: #818cf8;
+}
+
+/* ==========================================================================
+   Screen 1: Main Circadian Dashboard
+   ========================================================================== */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Circadian Chronometer Widget */
+.chronometer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 10px 0;
+}
+
+.chrono-dial-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  filter: drop-shadow(0 0 20px var(--accent-ambient));
+}
+
+.chrono-center-stats {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.chrono-time-display {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.chrono-phase-name {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent-secondary);
+  margin-top: 4px;
+}
+
+.chrono-subtext {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Chrono Legend */
+.chrono-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Real-Time Telemetry Bar */
+.telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .telemetry-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.telemetry-box {
+  background: var(--surface-glass);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.telemetry-box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-primary);
+  opacity: 0.6;
+}
+
+.telemetry-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.telemetry-value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+.telemetry-hint {
+  font-size: 11px;
+  color: var(--accent-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Cognitive Energy Curve Chart */
+.chart-container {
+  width: 100%;
+  height: 220px;
+  position: relative;
+}
+
+#cognitiveCurveCanvas {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+}
+
+/* Quick Flow Snapshot */
+.flow-overview-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flow-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.flow-item:hover {
+  background: var(--surface-hover);
+  border-color: var(--surface-glass-border);
+}
+
+.flow-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.flow-item-title {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.flow-item-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Screen 2: Phase-Gated Task Engine
+   ========================================================================== */
+
+.phase-columns-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1200px) {
+  .phase-columns-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .phase-columns-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.phase-col {
+  background: var(--surface-glass);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+}
+
+.phase-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.phase-col-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.phase-col-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+/* Task Item Card */
+.task-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.task-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.task-card.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.task-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.task-checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 2px solid var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.custom-checkbox.checked {
+  background: var(--accent-primary);
+}
+
+.custom-checkbox.checked::after {
+  content: '✓';
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.task-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+.task-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 11px;
+}
+
+.task-strain-tag {
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.strain-high {
+  background: rgba(244, 63, 94, 0.2);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.strain-med {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.strain-low {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.task-duration-tag {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Add Task Button */
+.btn-add-task {
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--surface-glass-border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  transition: all var(--transition-fast);
+}
+
+.btn-add-task:hover {
+  background: var(--surface-hover);
+  color: var(--text-main);
+  border-color: var(--accent-secondary);
+}
+
+/* ==========================================================================
+   Screen 3: Habit Architecture & Lifetime Limit Controls
+   ========================================================================== */
+
+.habit-top-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.lifetime-banner {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.lifetime-info h4 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lifetime-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.btn-pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--accent-primary);
+  background: var(--accent-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+}
+
+.btn-pill:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.btn-pill.btn-outline {
+  background: transparent;
+  color: var(--accent-secondary);
+  border-color: var(--surface-glass-border);
+}
+
+.btn-pill.btn-outline:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent-secondary);
+}
+
+/* Habit Grid */
+.habits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.habit-row-card {
+  background: var(--surface-glass);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  transition: all var(--transition-fast);
+}
+
+.habit-row-card:hover {
+  border-color: var(--accent-secondary);
+}
+
+.habit-main-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 240px;
+}
+
+.habit-icon-pill {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--badge-bg);
+  border: 1px solid var(--badge-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.habit-details h4 {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.habit-details p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* 7-day tracker blocks */
+.week-day-trackers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.day-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.day-box-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.day-check-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  transition: all var(--transition-fast);
+}
+
+.day-check-btn:hover {
+  border-color: var(--accent-secondary);
+  background: var(--surface-hover);
+}
+
+.day-check-btn.done {
+  background: var(--accent-primary);
+  border-color: var(--accent-secondary);
+  color: #fff;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.habit-streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   Screen 4: Multi-Calendar Orchestration & Zero-Inbox Triage
+   ========================================================================== */
+
+.life-hub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .life-hub-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Calendar Filter Tabs */
+.cal-provider-toggles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cal-toggle-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.cal-toggle-pill.active {
+  background: var(--badge-bg);
+  border-color: var(--accent-secondary);
+  color: var(--accent-text);
+}
+
+.cal-events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cal-event-card {
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 4px solid var(--accent-primary);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all var(--transition-fast);
+}
+
+.cal-event-card:hover {
+  background: var(--surface-hover);
+}
+
+.cal-event-card.deep-slot-protected {
+  border-left-color: var(--status-deep-protect);
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.cal-event-time {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.cal-event-name {
+  font-weight: 600;
+  color: var(--text-main);
+  font-size: 13px;
+}
+
+/* Email Triage Section */
+.email-triage-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.email-inbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.email-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all var(--transition-fast);
+}
+
+.email-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent-secondary);
+}
+
+.email-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.email-sender {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.email-time {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.email-subject {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--accent-text);
+}
+
+.email-snippet {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.email-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.email-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.email-action-btn:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-secondary);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Screen 5: Deep Work & Focus Studio
+   ========================================================================== */
+
+.focus-studio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  padding: 40px 20px;
+}
+
+.focus-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 280px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--surface-glass-border);
+  box-shadow: 0 0 35px var(--accent-ambient);
+}
+
+#focusWaveCanvas {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.focus-timer-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+}
+
+.focus-timer-digits {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  color: #fff;
+  text-shadow: 0 0 25px var(--accent-glow);
+}
+
+.focus-timer-mode {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--accent-secondary);
+}
+
+.focus-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-focus-action {
+  padding: 12px 28px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--accent-primary);
+  background: var(--accent-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px var(--accent-glow);
+  transition: all var(--transition-fast);
+}
+
+.btn-focus-action:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.2);
+}
+
+.binaural-sound-module {
+  background: var(--surface-glass);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.binaural-presets {
+  display: flex;
+  gap: 8px;
+}
+
+.preset-chip {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--surface-glass-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.preset-chip.active {
+  background: var(--accent-primary);
+  border-color: var(--accent-secondary);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Screen 6: Retrospective & Sleep Analytics Suite
+   ========================================================================== */
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.retrospective-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.journal-textarea {
+  width: 100%;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 13px;
+  resize: vertical;
+  outline: none;
+}
+
+.journal-textarea:focus {
+  border-color: var(--accent-secondary);
+}
+
+/* Modal Dialogs */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 500px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-xl);
+  padding: 26px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px);
+  transition: transform var(--transition-normal);
+}
+
+.modal-overlay.open .modal-card {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.form-input, .form-select {
+  padding: 10px 14px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--surface-glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 13px;
+  outline: none;
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: var(--accent-secondary);
+}
+
+/* ==========================================================================
+   Android & Mobile Optimizations
+   ========================================================================== */
+
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--surface-glass-border);
+  padding: 8px 12px;
+  z-index: 100;
+  justify-content: space-around;
+  backdrop-filter: blur(20px);
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+  }
+  .nav-bar {
+    display: none; /* Replaced by bottom nav on mobile */
+  }
+  .app-container {
+    padding-bottom: 90px;
+  }
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mobile-nav-item.active {
+  color: var(--accent-secondary);
+}
+
+.mobile-nav-item svg {
+  width: 20px;
+  height: 20px;
+}
