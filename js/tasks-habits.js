@@ -4,6 +4,7 @@
  */
 
 const TaskHabitEngine = (() => {
+  const API_BASE = 'http://localhost:3000/api';
   const TASKS_KEY = 'chronosync_tasks_v1';
   const HABITS_KEY = 'chronosync_habits_v1';
   const ACCESS_LIMIT_KEY = 'chronosync_access_limit_v1';
@@ -122,10 +123,23 @@ const TaskHabitEngine = (() => {
   let tasks = [];
   let habits = [];
 
-  function init() {
+  async function init() {
     try {
-      const storedTasks = localStorage.getItem(TASKS_KEY);
-      tasks = storedTasks ? JSON.parse(storedTasks) : DEFAULT_TASKS;
+      // Try to fetch tasks from the backend first
+      try {
+        const response = await fetch(`${API_BASE}/tasks`);
+        if (response.ok) {
+          tasks = await response.json();
+          // Cache to local storage just in case
+          localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+        } else {
+          throw new Error('Backend responded with an error');
+        }
+      } catch (err) {
+        console.warn('Backend not reachable, falling back to local storage', err);
+        const storedTasks = localStorage.getItem(TASKS_KEY);
+        tasks = storedTasks ? JSON.parse(storedTasks) : DEFAULT_TASKS;
+      }
 
       const storedHabits = localStorage.getItem(HABITS_KEY);
       habits = storedHabits ? JSON.parse(storedHabits) : DEFAULT_HABITS;
@@ -157,32 +171,70 @@ const TaskHabitEngine = (() => {
     renderAccessLimitUI();
   }
 
-  function addTask(title, phase, strain = 'med', duration = '30m', source = 'User') {
+  async function addTask(title, phase, strain = 'med', duration = '30m', source = 'User') {
     const newTask = {
-      id: 't-' + Date.now(),
-      phase: phase || CircadianEngine.getEffectivePhase().id,
+      phase: phase || (typeof CircadianEngine !== 'undefined' ? CircadianEngine.getEffectivePhase().id : 'peak'),
       title: title.trim(),
       strain,
       duration,
       completed: false,
       source
     };
-    tasks.push(newTask);
+
+    try {
+      const response = await fetch(`${API_BASE}/tasks`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newTask)
+      });
+      
+      if (response.ok) {
+        const createdTask = await response.json();
+        tasks.push(createdTask);
+      } else {
+        // Fallback for local testing if DB is down
+        newTask.id = 't-' + Date.now();
+        tasks.push(newTask);
+      }
+    } catch (err) {
+      console.warn('Failed to add task to backend, adding locally', err);
+      newTask.id = 't-' + Date.now();
+      tasks.push(newTask);
+    }
+
     saveTasks();
     return newTask;
   }
 
-  function toggleTask(id) {
+  async function toggleTask(id) {
     const task = tasks.find(t => t.id === id);
     if (task) {
       task.completed = !task.completed;
-      saveTasks();
+      saveTasks(); // Optimistic UI update
+      
+      try {
+        await fetch(`${API_BASE}/tasks/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ completed: task.completed })
+        });
+      } catch (err) {
+        console.warn('Failed to sync toggle with backend', err);
+      }
     }
   }
 
-  function deleteTask(id) {
+  async function deleteTask(id) {
     tasks = tasks.filter(t => t.id !== id);
-    saveTasks();
+    saveTasks(); // Optimistic UI update
+    
+    try {
+      await fetch(`${API_BASE}/tasks/${id}`, {
+        method: 'DELETE'
+      });
+    } catch (err) {
+      console.warn('Failed to sync delete with backend', err);
+    }
   }
 
   function toggleHabitDay(habitId, dayIndex) {
