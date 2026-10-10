@@ -10,6 +10,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Serve frontend static files from the parent directory
+const path = require('path');
+app.use(express.static(path.join(__dirname, '..')));
+
 // Supabase Configuration
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
@@ -143,8 +147,18 @@ app.post('/api/retrospective', async (req, res) => {
 });
 
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-  console.log(`http://localhost:${PORT}`);
+// Catch-all: serve index.html for any non-API routes (local dev only)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
+
+// Start Server only when running locally (not on Vercel)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+    console.log(`http://localhost:${PORT}`);
+  });
+}
+
+// Export for Vercel serverless function
+module.exports = app;

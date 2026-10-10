@@ -4,7 +4,9 @@
  */
 
 const TaskHabitEngine = (() => {
-  const API_BASE = 'http://localhost:3000/api';
+  // API base URL — uses relative path so it works on both localhost and Vercel
+  const API_BASE = '/api';
+
   const TASKS_KEY = 'chronosync_tasks_v1';
   const HABITS_KEY = 'chronosync_habits_v1';
   const ACCESS_LIMIT_KEY = 'chronosync_access_limit_v1';
@@ -125,16 +127,14 @@ const TaskHabitEngine = (() => {
 
   async function init() {
     try {
-      // Try to fetch tasks from the backend first
+      // Try to fetch tasks from the backend API
       try {
-        const response = await fetch(`${API_BASE}/tasks`);
-        if (response.ok) {
-          tasks = await response.json();
-          // Cache to local storage just in case
-          localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
-        } else {
-          throw new Error('Backend responded with an error');
-        }
+        const res = await fetch(`${API_BASE}/tasks`);
+        if (!res.ok) throw new Error(`API error: ${res.status}`);
+        const data = await res.json();
+        tasks = data || [];
+        // Cache to local storage as fallback
+        localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
       } catch (err) {
         console.warn('Backend not reachable, falling back to local storage', err);
         const storedTasks = localStorage.getItem(TASKS_KEY);
@@ -182,20 +182,14 @@ const TaskHabitEngine = (() => {
     };
 
     try {
-      const response = await fetch(`${API_BASE}/tasks`, {
+      const res = await fetch(`${API_BASE}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTask)
       });
-      
-      if (response.ok) {
-        const createdTask = await response.json();
-        tasks.push(createdTask);
-      } else {
-        // Fallback for local testing if DB is down
-        newTask.id = 't-' + Date.now();
-        tasks.push(newTask);
-      }
+      if (!res.ok) throw new Error(`API error: ${res.status}`);
+      const created = await res.json();
+      tasks.push(created);
     } catch (err) {
       console.warn('Failed to add task to backend, adding locally', err);
       newTask.id = 't-' + Date.now();
@@ -211,7 +205,7 @@ const TaskHabitEngine = (() => {
     if (task) {
       task.completed = !task.completed;
       saveTasks(); // Optimistic UI update
-      
+
       try {
         await fetch(`${API_BASE}/tasks/${id}`, {
           method: 'PUT',
@@ -227,11 +221,9 @@ const TaskHabitEngine = (() => {
   async function deleteTask(id) {
     tasks = tasks.filter(t => t.id !== id);
     saveTasks(); // Optimistic UI update
-    
+
     try {
-      await fetch(`${API_BASE}/tasks/${id}`, {
-        method: 'DELETE'
-      });
+      await fetch(`${API_BASE}/tasks/${id}`, { method: 'DELETE' });
     } catch (err) {
       console.warn('Failed to sync delete with backend', err);
     }
@@ -334,7 +326,7 @@ const TaskHabitEngine = (() => {
     if (!container) return;
     const currentPhase = CircadianEngine.getEffectivePhase().id;
     const activeTasks = tasks.filter(t => t.phase === currentPhase && !t.completed).slice(0, 3);
-    
+
     if (activeTasks.length === 0) {
       container.innerHTML = `<div style="color:var(--text-dim);font-size:12px;padding:8px 0;">All current phase goals completed. Stellar flow!</div>`;
       return;
