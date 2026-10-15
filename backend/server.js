@@ -10,8 +10,13 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend static files from the parent directory
+// Serve frontend static files from public directory and parent directory
 const path = require('path');
+const fs = require('fs');
+const publicFolder = path.join(__dirname, '..', 'public');
+if (fs.existsSync(publicFolder)) {
+  app.use(express.static(publicFolder));
+}
 app.use(express.static(path.join(__dirname, '..')));
 
 // Supabase Configuration
@@ -149,6 +154,10 @@ app.post('/api/retrospective', async (req, res) => {
 
 // Catch-all: serve index.html for any non-API routes (local dev only)
 app.use((req, res) => {
+  const publicIndex = path.join(__dirname, '..', 'public', 'index.html');
+  if (fs.existsSync(publicIndex)) {
+    return res.sendFile(publicIndex);
+  }
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 

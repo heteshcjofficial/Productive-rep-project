@@ -17,8 +17,54 @@
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23090d16' stroke='%230ea5e9' stroke-width='4'/><circle cx='50' cy='50' r='14' fill='%2338bdf8'/></svg>">
 
-  <!-- Core CSS -->
+  <!-- Google Fonts Direct Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Core CSS (Root-relative + Relative fallbacks) -->
+  <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    /* Critical Baseline Circadian Theme — guarantees dark mode and zero unstyled flash */
+    :root {
+      --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --bg-primary: #07090e;
+      --bg-secondary: #0d131f;
+      --bg-tertiary: #141c2e;
+      --surface-glass: rgba(13, 19, 31, 0.75);
+      --surface-glass-border: rgba(56, 189, 248, 0.18);
+      --accent-primary: #0ea5e9;
+      --accent-secondary: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --badge-bg: rgba(14, 165, 233, 0.15);
+      --badge-border: rgba(14, 165, 233, 0.3);
+      --badge-text: #38bdf8;
+    }
+    body.theme-peak { --bg-primary: #07090e; --accent-primary: #0ea5e9; }
+    body.theme-dawn { --bg-primary: #0f0d0a; --accent-primary: #f59e0b; }
+    body.theme-twilight { --bg-primary: #0c0914; --accent-primary: #9333ea; }
+    body.theme-nocturne { --bg-primary: #0a0406; --accent-primary: #e11d48; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg-primary, #07090e) !important;
+      color: var(--text-main, #f8fafc) !important;
+      font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body class="theme-peak">
   <div class="noise-overlay"></div>
@@ -606,11 +652,21 @@
   <!-- Application Scripts -->
   <!-- Supabase JS Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./js/circadian.js"></script>
-  <script src="./js/chronometer.js"></script>
-  <script src="./js/tasks-habits.js"></script>
-  <script src="./js/integrations.js"></script>
-  <script src="./js/focus-studio.js"></script>
-  <script src="./js/app.js"></script>
+  <script src="/js/circadian.js"></script>
+  <script src="/js/chronometer.js"></script>
+  <script src="/js/tasks-habits.js"></script>
+  <script src="/js/integrations.js"></script>
+  <script src="/js/focus-studio.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    // Fallback script loader if root-relative scripts were blocked by relative URL scoping
+    if (typeof CircadianEngine === 'undefined') {
+      ['circadian.js', 'chronometer.js', 'tasks-habits.js', 'integrations.js', 'focus-studio.js', 'app.js'].forEach(function(file) {
+        var s = document.createElement('script');
+        s.src = './js/' + file;
+        document.body.appendChild(s);
+      });
+    }
+  </script>
 </body>
 </html>
