@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node backend/server.js",
-    "install-backend": "cd backend && npm install",
-    "vercel-build": "npm run install-backend"
+    "start": "node backend/server.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",

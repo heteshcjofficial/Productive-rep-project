@@ -148,12 +148,12 @@ app.post('/api/retrospective', async (req, res) => {
 
 
 // Catch-all: serve index.html for any non-API routes (local dev only)
-app.get('*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
-// Start Server only when running locally (not on Vercel)
-if (process.env.VERCEL !== '1') {
+// Start Server only when executed directly (not when imported as a serverless function)
+if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
     console.log(`http://localhost:${PORT}`);

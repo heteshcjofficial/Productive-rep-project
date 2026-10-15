@@ -32,6 +32,14 @@ const App = (() => {
     setupPhaseListener();
     registerServiceWorker();
     loadRetrospective();
+
+    // 5. Update dynamic node domain pill
+    const liveNodeDomain = document.getElementById('liveNodeDomain');
+    const liveNodePill = document.getElementById('liveNodePill');
+    if (liveNodeDomain && window.location.host) {
+      liveNodeDomain.textContent = window.location.host;
+      if (liveNodePill) liveNodePill.href = window.location.origin;
+    }
   }
 
   function setupNavigation() {
