@@ -4,8 +4,8 @@
  */
 
 const TaskHabitEngine = (() => {
-  // API base URL — uses relative path so it works on both localhost and Vercel
-  const API_BASE = '/api';
+  // API base URL — if an external backend is configured (e.g. Replit URL), set window.CHRONOSYNC_API_BASE
+  const API_BASE = (typeof window !== 'undefined' && window.CHRONOSYNC_API_BASE) ? window.CHRONOSYNC_API_BASE : null;
 
   const TASKS_KEY = 'chronosync_tasks_v1';
   const HABITS_KEY = 'chronosync_habits_v1';
@@ -127,16 +127,19 @@ const TaskHabitEngine = (() => {
 
   async function init() {
     try {
-      // Try to fetch tasks from the backend API
-      try {
-        const res = await fetch(`${API_BASE}/tasks`);
-        if (!res.ok) throw new Error(`API error: ${res.status}`);
-        const data = await res.json();
-        tasks = data || [];
-        // Cache to local storage as fallback
-        localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
-      } catch (err) {
-        console.warn('Backend not reachable, falling back to local storage', err);
+      if (API_BASE) {
+        try {
+          const res = await fetch(`${API_BASE}/tasks`);
+          if (!res.ok) throw new Error(`API error: ${res.status}`);
+          const data = await res.json();
+          tasks = data || [];
+          localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+        } catch (err) {
+          console.warn('Backend not reachable, falling back to local storage', err);
+          const storedTasks = localStorage.getItem(TASKS_KEY);
+          tasks = storedTasks ? JSON.parse(storedTasks) : DEFAULT_TASKS;
+        }
+      } else {
         const storedTasks = localStorage.getItem(TASKS_KEY);
         tasks = storedTasks ? JSON.parse(storedTasks) : DEFAULT_TASKS;
       }
@@ -181,17 +184,22 @@ const TaskHabitEngine = (() => {
       source
     };
 
-    try {
-      const res = await fetch(`${API_BASE}/tasks`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newTask)
-      });
-      if (!res.ok) throw new Error(`API error: ${res.status}`);
-      const created = await res.json();
-      tasks.push(created);
-    } catch (err) {
-      console.warn('Failed to add task to backend, adding locally', err);
+    if (API_BASE) {
+      try {
+        const res = await fetch(`${API_BASE}/tasks`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newTask)
+        });
+        if (!res.ok) throw new Error(`API error: ${res.status}`);
+        const created = await res.json();
+        tasks.push(created);
+      } catch (err) {
+        console.warn('Failed to add task to backend, adding locally', err);
+        newTask.id = 't-' + Date.now();
+        tasks.push(newTask);
+      }
+    } else {
       newTask.id = 't-' + Date.now();
       tasks.push(newTask);
     }
@@ -206,14 +214,16 @@ const TaskHabitEngine = (() => {
       task.completed = !task.completed;
       saveTasks(); // Optimistic UI update
 
-      try {
-        await fetch(`${API_BASE}/tasks/${id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ completed: task.completed })
-        });
-      } catch (err) {
-        console.warn('Failed to sync toggle with backend', err);
+      if (API_BASE) {
+        try {
+          await fetch(`${API_BASE}/tasks/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ completed: task.completed })
+          });
+        } catch (err) {
+          console.warn('Failed to sync toggle with backend', err);
+        }
       }
     }
   }
@@ -222,10 +232,12 @@ const TaskHabitEngine = (() => {
     tasks = tasks.filter(t => t.id !== id);
     saveTasks(); // Optimistic UI update
 
-    try {
-      await fetch(`${API_BASE}/tasks/${id}`, { method: 'DELETE' });
-    } catch (err) {
-      console.warn('Failed to sync delete with backend', err);
+    if (API_BASE) {
+      try {
+        await fetch(`${API_BASE}/tasks/${id}`, { method: 'DELETE' });
+      } catch (err) {
+        console.warn('Failed to sync delete with backend', err);
+      }
     }
   }
 
