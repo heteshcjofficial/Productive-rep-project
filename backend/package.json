@@ -1,0 +1,14 @@
+{
+  "name": "chronosync-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "dev": "npm --prefix .. run dev",
+    "build": "npm --prefix .. run build",
+    "typecheck": "npm --prefix .. run typecheck",
+    "start": "node server.js",
+    "test": "npm --prefix .. test"
+  }
+}

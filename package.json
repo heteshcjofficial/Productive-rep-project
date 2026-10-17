@@ -1,0 +1,29 @@
+{
+  "name": "chronosync",
+  "version": "1.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx watch backend/src/server.ts",
+    "build": "tsc -p backend/tsconfig.json",
+    "typecheck": "tsc --noEmit -p backend/tsconfig.json",
+    "start": "node backend/server.js",
+    "test": "npm run build && node --test backend/tests/*.test.cjs",
+    "vercel-build": "npm run build"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.79.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^20.19.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
